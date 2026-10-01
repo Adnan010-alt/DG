@@ -4,20 +4,16 @@ import { jsPDF } from 'jspdf'
 const bookingEmail = 'bookings@destinygomba.com'
 
 const portfolio = [
-  { src: 'photo-1529139574466-a303027c1d8b', alt: 'Fashion portrait in a sculptural outfit', title: 'Form study', credit: 'Editorial reference 01' },
-  { src: 'photo-1534528741775-53994a69daeb', alt: 'Close-up studio portrait', title: 'Quiet light', credit: 'Editorial reference 02' },
-  { src: 'photo-1515886657613-9f3515b0c78f', alt: 'Street-style fashion portrait', title: 'On the street', credit: 'Editorial reference 03' },
-  { src: 'photo-1524504388940-b1c1722653e1', alt: 'Natural-light beauty portrait', title: 'Soft focus', credit: 'Editorial reference 04' },
-  { src: 'photo-1539109136881-3be0616acf4b', alt: 'Full-length fashion portrait', title: 'New silhouette', credit: 'Editorial reference 05' },
-  { src: 'photo-1525507119028-ed4c629a60a3', alt: 'Fashion look photographed outdoors', title: 'In motion', credit: 'Editorial reference 06' },
-  { src: 'photo-1539571696357-5a69c17a67c6', alt: 'Portrait in natural light', title: 'A study in stillness', credit: 'Editorial reference 07' },
-  { src: 'photo-1524504388940-b1c1722653e1', alt: 'Portrait framed against a simple background', title: 'Portrait, no. 08', credit: 'Editorial reference 08' },
-  { src: 'photo-1529139574466-a303027c1d8b', alt: 'Contemporary fashion editorial', title: 'The shape of things', credit: 'Editorial reference 09' },
-  { src: 'photo-1515886657613-9f3515b0c78f', alt: 'Fashion study in monochrome', title: 'After hours', credit: 'Editorial reference 10' },
+  { src: '/destiny/501125628_18368325310192023_3140630526521723868_n.jpg', alt: 'Fashion portrait in a sculptural outfit', title: 'Form study', credit: 'Editorial reference 01' },
+  { src: '/destiny/587556547_18393072835192023_9091803690174659592_n.jpg', alt: 'Close-up studio portrait', title: 'Quiet light', credit: 'Editorial reference 02' },
+  { src: '/destiny/630159183_17845839141684319_5128537222206974733_n.jpg', alt: 'Street-style fashion portrait', title: 'On the street', credit: 'Editorial reference 03' },
+  { src: '/destiny/654026649_18145705243474527_6423170126569700247_n.jpg', alt: 'Natural-light beauty portrait', title: 'Soft focus', credit: 'Editorial reference 04' },
+  { src: '/destiny/655208250_18105879319851386_6664564266117068974_n.jpg', alt: 'Full-length fashion portrait', title: 'New silhouette', credit: 'Editorial reference 05' },
+  { src: '/destiny/722995602_17869314777684319_8638627465086303604_n.jpg', alt: 'Fashion look photographed outdoors', title: 'In motion', credit: 'Editorial reference 06' },
+  { src: '/destiny/825323109_18440571958192023_7626798975550654516_n.jpg', alt: 'Portrait in natural light', title: 'A study in stillness', credit: 'Editorial reference 07' },
 ]
 
-const imageUrl = (id, width = 1000) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=85`
+const imageUrl = (src) => src
 
 document.querySelector('#app').innerHTML = `
   <header class="site-header" id="site-header">
@@ -35,7 +31,7 @@ document.querySelector('#app').innerHTML = `
 
   <main>
     <section class="cover" id="home" aria-labelledby="cover-title">
-      <img class="cover-image" src="${imageUrl('photo-1534528741775-53994a69daeb', 2000)}" alt="Temporary editorial portrait reference" fetchpriority="high" />
+      <img class="cover-image" src="${imageUrl('/destiny/587556547_18393072835192023_9091803690174659592_n.jpg')}" alt="Destiny Gomba portrait reference" fetchpriority="high" />
       <div class="cover-shade"></div>
       <div class="cover-meta"><span>FASHION MODEL</span><span>PORTFOLIO / 2026</span></div>
       <div class="cover-copy">
@@ -55,7 +51,7 @@ document.querySelector('#app').innerHTML = `
       <div class="gallery" aria-label="Selected portfolio images">
         ${portfolio.map((item, index) => `
           <button class="gallery-item reveal" type="button" data-index="${index}" aria-label="View ${item.title}, image ${String(index + 1).padStart(2, '0')} of ${portfolio.length}">
-            <span class="gallery-image-wrap"><img src="${imageUrl(item.src, 900)}" alt="${item.alt}, temporary image reference" loading="lazy" decoding="async" /></span>
+            <span class="gallery-image-wrap"><img src="${imageUrl(item.src)}" alt="${item.alt}, portfolio image" loading="lazy" decoding="async" /></span>
             <span class="gallery-caption"><span>${item.title}</span><span>${String(index + 1).padStart(2, '0')}</span></span>
           </button>
         `).join('')}
@@ -70,7 +66,7 @@ document.querySelector('#app').innerHTML = `
       </div>
       <article class="comp-card reveal">
         <div class="comp-photo-wrap">
-          <img id="comp-photo" src="${imageUrl('photo-1524504388940-b1c1722653e1', 1000)}" alt="Temporary portrait reference for comp card layout" loading="lazy" />
+          <img id="comp-photo" src="${imageUrl('/destiny/655208250_18105879319851386_6664564266117068974_n.jpg')}" alt="Destiny Gomba portrait reference for comp card layout" loading="lazy" />
           <span class="comp-photo-label">LAYOUT PREVIEW</span>
         </div>
         <div class="comp-details">
@@ -97,7 +93,7 @@ document.querySelector('#app').innerHTML = `
 
     <section class="about-section section-pad" id="about" aria-labelledby="about-title">
       <div class="about-image reveal">
-        <img src="${imageUrl('photo-1539571696357-5a69c17a67c6', 1100)}" alt="Temporary natural-light portrait reference" loading="lazy" />
+        <img src="${imageUrl('/destiny/630159183_17845839141684319_5128537222206974733_n.jpg')}" alt="Destiny Gomba portrait study" loading="lazy" />
         <span class="image-index">PORTRAIT STUDY / 01</span>
       </div>
       <div class="about-copy reveal">
@@ -208,8 +204,8 @@ let touchStartX = null
 function showImage(index) {
   activeIndex = (index + portfolio.length) % portfolio.length
   const item = portfolio[activeIndex]
-  lightboxImage.src = imageUrl(item.src, 1800)
-  lightboxImage.alt = `${item.alt}, temporary image reference`
+  lightboxImage.src = imageUrl(item.src)
+  lightboxImage.alt = `${item.alt}, portfolio image`
   lightboxCaption.textContent = `${item.title} · ${item.credit}`
   lightboxCount.textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(portfolio.length).padStart(2, '0')}`
 }
@@ -268,7 +264,7 @@ document.querySelector('#download-card').addEventListener('click', async (event)
     try {
       const photo = new Image()
       photo.crossOrigin = 'anonymous'
-      photo.src = imageUrl('photo-1524504388940-b1c1722653e1', 1000)
+      photo.src = imageUrl('/destiny/654026649_18145705243474527_6423170126569700247_n.jpg')
       await Promise.race([
         photo.decode(),
         new Promise((_, reject) => {
