@@ -76,7 +76,7 @@ document.querySelector('#app').innerHTML = `
           <dl class="measurements">
             <div><dt>Height</dt><dd>5'2</dd></div>
             <div><dt>Bust</dt><dd>34</dd></div>
-            <div><dt>Waist</dt><dd>26</dd></div>
+            <div><dt>Waist</dt><dd>24</dd></div>
             <div><dt>Hips</dt><dd>32</dd></div>
             <div><dt>Shoe</dt><dd>US 7.5</dd></div>
             <div><dt>Dress</dt><dd>US 2</dd></div>
@@ -295,7 +295,7 @@ document.querySelector('#download-card').addEventListener('click', async (event)
 
     const stats = [
       ['HEIGHT', "5'2"], ['BUST', '34'],
-      ['WAIST', '26'], ['HIPS', '32'],
+      ['WAIST', '24'], ['HIPS', '32'],
       ['SHOE', 'US 7.5'], ['DRESS', 'US 2'],
       ['HAIR', 'Dark Brown'], ['EYES', 'Brown'],
     ]
