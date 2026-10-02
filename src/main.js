@@ -86,7 +86,6 @@ document.querySelector('#app').innerHTML = `
           <button class="button button-dark" id="download-card" type="button">
             <span aria-hidden="true">↓</span> Download comp card
           </button>
-          <p class="pdf-note" id="pdf-note" role="status" aria-live="polite">Preview PDF — replace the temporary image and add contact details before sharing.</p>
         </div>
       </article>
     </section>
@@ -250,7 +249,7 @@ document.querySelector('#download-card').addEventListener('click', async (event)
   const button = event.currentTarget
   const status = document.querySelector('#pdf-note')
   button.disabled = true
-  status.textContent = 'Preparing your comp card…'
+  if (status) status.textContent = 'Preparing your comp card…'
 
   try {
     const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
@@ -314,9 +313,9 @@ document.querySelector('#download-card').addEventListener('click', async (event)
     pdf.setFontSize(7)
     pdf.text('LAYOUT PREVIEW — replace the temporary image and add contact details before sharing.', 18, 276)
     pdf.save('destiny-gomba-comp-card.pdf')
-    status.textContent = 'Preview PDF downloaded. Replace the temporary image and add contact details before sharing.'
+    if (status) status.textContent = 'Preview PDF downloaded. Replace the temporary image and add contact details before sharing.'
   } catch {
-    status.textContent = 'The PDF could not be created. Please try again.'
+    if (status) status.textContent = 'The PDF could not be created. Please try again.'
   } finally {
     button.disabled = false
   }
